@@ -6,11 +6,15 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "backpack/base": "^0.8.3",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "predis/predis": "^1.1",
+        "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
+        "backpack/generators": "^1.1",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "~1.0",
