@@ -50,9 +50,28 @@
 @endsection
 
 @section('after_scripts')
+ <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+ {{-- <script src="socket.io/socket.io.js"></script> --}}
+ {{-- <script src="js/app.js"></script> --}}
 <script>
   $(document).ready(function(){
     $('#voucherTable').DataTable();
+
+     var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+      cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
+      encrypted: {{ env('PUSHER_APP_ENCRYPTED') }}
+    });
+
+    var channel = pusher.subscribe('queue');
+    channel.bind('CreateQueue', function(data) {
+      console.log('event ocurred')
+      // alert(data.message);
+    });
+
+    // Echo.channel('orders')
+    // .listen('OrderShipped', (e) => {
+    //     console.log(e.order.name);
+    // });
   })  
 </script>
 @endsection

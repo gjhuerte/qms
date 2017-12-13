@@ -23,4 +23,9 @@ class Voucher extends Model
     {
         return $query->where('status','=',$value);
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'attended_by','id');
+    }
 }

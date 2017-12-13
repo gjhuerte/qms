@@ -38,4 +38,9 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function vouchers()
+    {
+        return $this->hasMany('App\Voucher', 'attended_by','id');
+    }
 }

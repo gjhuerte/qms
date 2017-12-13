@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Carbon;
 use App;
+use Auth;
+use Event;
 
 class QueuesController extends Controller
 {
@@ -45,9 +47,12 @@ class QueuesController extends Controller
     	$voucher->customer_name = $name;
     	$voucher->category = $category;
     	$voucher->purpose = $purpose;
+        $voucher->attended_by = null;
     	$voucher->validity = Carbon\Carbon::now()->endOfDay();
     	$voucher->status = 'on queue';
     	$voucher->save();
+
+        event(new App\Events\CreateQueue($voucher));
 
     	\Alert::success('Queue Generated')->flash();
 
@@ -57,9 +62,11 @@ class QueuesController extends Controller
     public function showAttendForm(Request $request)
     {
         $id = $request->get('id');
+        $status = 'currently attended';
 
         $this->data['voucher'] = App\Voucher::find($id);
-        $this->data['voucher']->status = 'currently attended';
+        $this->data['voucher']->status = $status;
+        $this->data['voucher']->attended_by = Auth::user()->id;
         $this->data['voucher']->save();
 
         return view('queue.attend',$this->data);
@@ -94,5 +101,15 @@ class QueuesController extends Controller
     public function printVoucher(Request $request)
     {
 
+    }
+
+    public function showCounter(Request $request)
+    {
+        return view('queue.counter');
+    }
+
+    public function showList(Request $request)
+    {
+        return view('queue.list');
     }
 }

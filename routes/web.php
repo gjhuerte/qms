@@ -19,12 +19,16 @@ Route::prefix('queue')->group(function(){
 	Route::get('/', 'QueuesController@index' );
 
 	Route::get('generate', 'QueuesController@showGenerateForm');
-
 	Route::post('generate', 'QueuesController@generate');
 
 	Route::get('attend','QueuesController@showAttendForm');
-	Route::get('cancel','QueuesController@cancel');
 	Route::post('attend','QueuesController@attend');
+
+	Route::get('cancel','QueuesController@cancel');
+
+	Route::get('counter','QueuesController@showCounter');
+
+	Route::get('list','QueuesController@showList');
 });
 
 Route::prefix(config('backpack.base.route_prefix'))->group(function(){

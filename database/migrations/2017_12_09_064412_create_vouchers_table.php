@@ -20,6 +20,10 @@ class CreateVouchersTable extends Migration
             $table->text('purpose');
             $table->datetime('validity');
             $table->string('status');
+            $table->integer('attended_by')->unsigned()->nullable();
+            $table->foreign('attended_by')
+                    ->references('id')
+                    ->on('users');
             $table->timestamps();
         });
     }
