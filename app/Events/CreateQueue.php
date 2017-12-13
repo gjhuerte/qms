@@ -14,7 +14,7 @@ class CreateQueue implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $data;
+    public $voucher;
 
     /**
      * Create a new event instance.
@@ -43,6 +43,6 @@ class CreateQueue implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['queue'];
+        return ['queue-channel'];
     }
 }

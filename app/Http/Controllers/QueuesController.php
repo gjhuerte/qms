@@ -69,6 +69,8 @@ class QueuesController extends Controller
         $this->data['voucher']->attended_by = Auth::user()->id;
         $this->data['voucher']->save();
 
+        event(new App\Events\AttendedQueue($this->data['voucher']));
+
         return view('queue.attend',$this->data);
     }
 
@@ -80,18 +82,22 @@ class QueuesController extends Controller
         $voucher->status = 'attended';
         $voucher->save();
 
+        event(new App\Events\AttendedQueue($voucher));
+
         \Alert::success('Request Attended')->flash();
 
         return redirect(config('backpack.base.route_prefix').'/dashboard');
     }
 
-    public function cancel(Request $request,$id)
+    public function cancel(Request $request)
     {
         $id = $request->get('id');
 
         $voucher = App\Voucher::find($id);
         $voucher->status = 'on queue';
         $voucher->save();
+
+        event(new App\Events\AttendedQueue($voucher));
 
         \Alert::success('Request Cancelled')->flash();
 
@@ -105,6 +111,15 @@ class QueuesController extends Controller
 
     public function showCounter(Request $request)
     {
+        if($request->ajax())
+        {
+            $vouchers = App\Voucher::with('user')->status('currently attended')->get();
+            
+            return json_encode([
+                'data' => $vouchers
+            ]);
+        }
+
         return view('queue.counter');
     }
 

@@ -4,8 +4,9 @@
  
     <div class="container">
         <div class="row">
+            <div id="connection"></div>
             <div class="col-lg-8 col-lg-offset-2" >
-              <div id="messages" ></div>
+              <div id="messages-info" ></div>
             </div>
         </div>
     </div>
@@ -15,13 +16,17 @@
 @section('after_scripts')
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.3.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
     <script>
-        // var socket = io.connect('http://localhost:8890');
-        var socket = io();
-        socket.on('message', function (data) {
-            $( "#messages" ).append( "<p>"+data+"</p>" );
-          });
+        var socket = io.connect('http://localhost:8890');
+
+        console.log('started connection...')
+        console.log(socket)
+        socket.on('message_received', function (data) {
+            console.log('triqqered');
+            console.log(data);
+            $( "#messages-info" ).append( "<p>"+data+"</p>" );
+        });
     </script>
 @endsection
 

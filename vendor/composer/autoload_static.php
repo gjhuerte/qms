@@ -64,6 +64,7 @@ class ComposerStaticInitdb9d29cf05e3d528038d5213d8682c07
         ),
         'P' => 
         array (
+            'Pusher\\Laravel\\' => 15,
             'Pusher\\' => 7,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
@@ -89,6 +90,10 @@ class ComposerStaticInitdb9d29cf05e3d528038d5213d8682c07
         'I' => 
         array (
             'Illuminate\\' => 11,
+        ),
+        'G' => 
+        array (
+            'GrahamCampbell\\Manager\\' => 23,
         ),
         'F' => 
         array (
@@ -210,6 +215,10 @@ class ComposerStaticInitdb9d29cf05e3d528038d5213d8682c07
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
+        'Pusher\\Laravel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vinkla/pusher/src',
+        ),
         'Pusher\\' => 
         array (
             0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
@@ -261,6 +270,10 @@ class ComposerStaticInitdb9d29cf05e3d528038d5213d8682c07
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
+        ),
+        'GrahamCampbell\\Manager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/graham-campbell/manager/src',
         ),
         'Fideloper\\Proxy\\' => 
         array (
@@ -357,6 +370,7 @@ class ComposerStaticInitdb9d29cf05e3d528038d5213d8682c07
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\CreateQueue' => __DIR__ . '/../..' . '/app/Events/CreateQueue.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -372,6 +386,7 @@ class ComposerStaticInitdb9d29cf05e3d528038d5213d8682c07
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Listeners\\UpdateQueueList' => __DIR__ . '/../..' . '/app/Listeners/UpdateQueueList.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -963,6 +978,9 @@ class ComposerStaticInitdb9d29cf05e3d528038d5213d8682c07
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'GrahamCampbell\\Manager\\AbstractManager' => __DIR__ . '/..' . '/graham-campbell/manager/src/AbstractManager.php',
+        'GrahamCampbell\\Manager\\ConnectorInterface' => __DIR__ . '/..' . '/graham-campbell/manager/src/ConnectorInterface.php',
+        'GrahamCampbell\\Manager\\ManagerInterface' => __DIR__ . '/..' . '/graham-campbell/manager/src/ManagerInterface.php',
         'Hamcrest\\Arrays\\IsArray' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
         'Hamcrest\\Arrays\\IsArrayContaining' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
         'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',
@@ -3168,6 +3186,10 @@ class ComposerStaticInitdb9d29cf05e3d528038d5213d8682c07
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/Psy/VersionUpdater/NoopChecker.php',
+        'Pusher\\Laravel\\Facades\\Pusher' => __DIR__ . '/..' . '/vinkla/pusher/src/Facades/Pusher.php',
+        'Pusher\\Laravel\\PusherFactory' => __DIR__ . '/..' . '/vinkla/pusher/src/PusherFactory.php',
+        'Pusher\\Laravel\\PusherManager' => __DIR__ . '/..' . '/vinkla/pusher/src/PusherManager.php',
+        'Pusher\\Laravel\\PusherServiceProvider' => __DIR__ . '/..' . '/vinkla/pusher/src/PusherServiceProvider.php',
         'Pusher\\Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Pusher.php',
         'Pusher\\PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherException.php',
         'Pusher\\PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInstance.php',

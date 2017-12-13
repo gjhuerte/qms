@@ -23,10 +23,17 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dashboard()
+    public function dashboard(Request $request)
     {
         $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
         $this->data['vouchers'] = App\Voucher::status('on queue')->orderBy('created_at','desc')->get();
+
+        if($request->ajax())
+        {
+            return json_encode([
+                'data' => $this->data['vouchers']
+            ]);
+        }
 
         return view('backpack::dashboard', $this->data);
     }

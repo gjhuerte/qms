@@ -1,37 +1,21 @@
 var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var redis = require('redis');
- 
-server.listen(8890);
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var Redis = require('ioredis');
+var redis = new Redis();
+var dotenv = require('dotenv').config()
 
-console.log("Server is listening to port 8890")
-
-io.on('connection', function (socket) {
- 
-  console.log("A Client Connect");
-  var redisClient = redis.createClient();
-  redisClient.subscribe('message');
- 
-  redisClient.on("message", function(channel, message) {
-    console.log("mew message in queue "+ message + "channel");
-    socket.emit(channel, message);
-  });
- 
-  // socket.on('disconnect', function() {
-  //   console.log("Client Disconnected")
-  //   redisClient.quit();
-  // });
-
-  socket.on('chat.message',function(message){
-    console.log("message:"+message)
-    io.emit('chat.message',message)
-  })
-
-  socket.on('sample',function(channel, message){
-    console.log('emitting something')
-    io.emit('sample','hello world')
-  })
- 
+redis.subscribe('queue-channel', function(err, count) {
 });
 
+redis.subscribe('attended-queue', function(err, count) {
+});
+
+redis.on('message', function(channel, message) {
+    message = JSON.parse(message);
+    io.emit(channel + ':' + message.event, message.data);
+});
+
+http.listen(process.env.SOCKET_PORT, function(){
+    console.log('Listening on Port ' + process.env.SOCKET_PORT);
+});

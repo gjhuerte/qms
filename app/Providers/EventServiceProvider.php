@@ -17,6 +17,10 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\UpdateQueueList',
         ],
 
+        'App\Events\AttendedQueue' => [
+            'App\Listeners\UpdateQueueList',
+        ],    
+
         // 'App\Events\Event' => [
         //     'App\Listeners\EventListener',
         // ],    

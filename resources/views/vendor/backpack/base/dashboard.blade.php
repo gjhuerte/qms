@@ -1,5 +1,13 @@
 @extends('backpack::layout')
 
+@section('after_styles')
+<style>
+  th, td {
+    word-spacing: nowrap;
+  }
+</style>
+@endsection
+
 @section('header')
     <section class="content-header">
       <h1>
@@ -25,23 +33,7 @@
                 <th>Status</th>
                 <th>Action</th>
               </thead>
-              <tbody>
-              @if(count($vouchers) > 0)
-                @foreach($vouchers as $voucher)
-
-                  <tr>
-                    <td>{{ $voucher->id }}</td>
-                    <td>{{ $voucher->purpose }}</td>
-                    <td>{{ Carbon\Carbon::parse($voucher->created_at)->diffForHumans() }}</td>
-                    <td>{{ $voucher->status }}</td>
-                    <td>
-                      <a href="{{ url("queue/attend?id=$voucher->id") }}" class="btn btn-primary btn-sm">Attend to</a>
-                    </td>
-                  </tr>
-
-                @endforeach
-              @endif
-              </tbody>
+              <tbody> </tbody>
             </table>
         </div>
     </div>
@@ -53,25 +45,39 @@
  <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
  {{-- <script src="socket.io/socket.io.js"></script> --}}
  {{-- <script src="js/app.js"></script> --}}
+<script src="{{ asset('js/socket.io.js') }}"></script>
 <script>
   $(document).ready(function(){
-    $('#voucherTable').DataTable();
-
-     var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
-      cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
-      encrypted: {{ env('PUSHER_APP_ENCRYPTED') }}
+    table = $('#voucherTable').DataTable({
+        language: {
+                searchPlaceholder: "Search..."
+        },
+        columnDefs:[
+            { targets: 'no-sort', orderable: false },
+        ],
+        "dom": "<'row'<'col-sm-3'l><'col-sm-6'<'toolbar'>><'col-sm-3'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        "processing": true,
+        ajax: "{{ url('admin/dashboard') }}",
+        columns: [
+            { data: "id" },
+            { data: "purpose" },
+            { data: function(callback){
+              return  moment(callback.created_at).fromNow()
+            } },
+            { data: "status" },
+            { data: function(callback){
+              return `<a href="{{ url("queue/attend?id=") }}`+ callback.id + `" class="btn btn-primary btn-sm">Attend to</a>`;
+            } },
+        ],
     });
 
-    var channel = pusher.subscribe('queue');
-    channel.bind('CreateQueue', function(data) {
-      console.log('event ocurred')
-      // alert(data.message);
+    var socket = io('{{ Request::getHttpHost() }}:{{ env('SOCKET_PORT') }}');
+    // var socket = io('http://192.168.10.10:3000');
+    socket.on("queue-channel:App\\Events\\CreateQueue", function(message){
+        table.ajax.reload()
     });
-
-    // Echo.channel('orders')
-    // .listen('OrderShipped', (e) => {
-    //     console.log(e.order.name);
-    // });
   })  
 </script>
 @endsection
