@@ -86,7 +86,7 @@
                     <a href="{{ url('queue/generate') }}">Generate</a>
                     <a href="{{ url('queue/list') }}">Queue List</a>
                     <a href="{{ url('queue/counter') }}">Counter</a>
-                    <a href="{{ url(config('backpack.base.route_prefix')) }}">Account</a>
+                    <a href="{{ url(config('backpack.base.route_prefix')) }}/login">Account</a>
                 </div>
             </div>
         </div>
