@@ -27,11 +27,11 @@
         <div class="col-md-12">
             <table class="table table-hover table-condensed" id="voucherTable" >
               <thead>
-                <th>ID</th>
-                <th>Purpose</th>
-                <th>Created At</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th class="col-sm-1">ID</th>
+                <th class="col-sm-1">Purpose</th>
+                <th class="col-sm-1">Created At</th>
+                <th class="col-sm-1">Status</th>
+                <th class="col-sm-1 no-sort">Action</th>
               </thead>
               <tbody> </tbody>
             </table>
@@ -68,7 +68,10 @@
             } },
             { data: "status" },
             { data: function(callback){
-              return `<a href="{{ url("queue/attend?id=") }}`+ callback.id + `" class="btn btn-primary btn-sm">Attend to</a>`;
+
+              call = `<button data-id="`+callback.id+`" class="call btn btn-warning btn-sm"><i class="fa fa-phone" aria-hidden="true"></i> Call</button>`
+              attend = ` <a href="{{ url("queue/attend?id=") }}`+ callback.id + `" class="btn btn-primary btn-sm"> <i class="fa fa-rss" aria-hidden="true"></i> Attend to</a>`
+              return call + attend;
             } },
         ],
     });
@@ -78,6 +81,32 @@
     socket.on("queue-channel:App\\Events\\CreateQueue", function(message){
         table.ajax.reload()
     });
+
+    $('#voucherTable').on('click','.call',function(){
+      id = $(this).data('id')
+      $.ajax({
+        type: "POST",
+        url: '{{ url('queue/call') }}',
+        dataType: 'json',
+        data: {
+          'id' : id
+        },
+        success: function(){
+          new PNotify({
+            title: "Operation successful",
+            text: "Information Posted.",
+            type: "success"
+          });
+        },
+        error: function(){
+          new PNotify({
+            title: "Operation Encountered a problem",
+            text: "The process run into an error",
+            type: "error"
+          });
+        }
+      })
+    })
   })  
 </script>
 @endsection

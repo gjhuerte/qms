@@ -21,7 +21,7 @@ class Voucher extends Model
 
     public function scopeStatus($query,$value)
     {
-        return $query->where('status','=',$value);
+        return $query->where('status', '=' , $value);
     }
 
     public function user()

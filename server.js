@@ -11,6 +11,9 @@ redis.subscribe('queue-channel', function(err, count) {
 redis.subscribe('attended-queue', function(err, count) {
 });
 
+redis.subscribe('call-channel', function(err, count) {
+});
+
 redis.on('message', function(channel, message) {
     message = JSON.parse(message);
     io.emit(channel + ':' + message.event, message.data);
@@ -18,4 +21,8 @@ redis.on('message', function(channel, message) {
 
 http.listen(process.env.SOCKET_PORT, function(){
     console.log('Listening on Port ' + process.env.SOCKET_PORT);
+});
+
+redis.on("call", function(channel, data) {
+	socket.emit(channel, data);
 });

@@ -1,0 +1,95 @@
+/*@import url('https://fonts.googleapis.com/css?family=Ubuntu');*/
+/*@import url('https://fonts.googleapis.com/css?family=Lato');*/
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');*/
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans');*/
+/*@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans');*/
+
+.shadow-light {
+	-webkit-box-shadow: 5px 9px 21px -4px rgba(61,61,61,1);
+	-moz-box-shadow: 5px 9px 21px -4px rgba(61,61,61,1);
+	box-shadow: 5px 9px 21px -4px rgba(61,61,61,1);
+}
+
+.color-indigo {
+	color: #264348;
+}
+
+.background-indigo {
+	background-color: #264348;
+	padding: 10px;
+	color: white;
+}
+
+.border-red {
+
+	/*border:3px solid #8f1d21;*/
+	border-width:1px;
+	border-style:solid;
+	border-color:#8f1d21;
+}
+
+.background-hanada {
+	background-color: #044F67;
+	padding: 10px;
+	color: white;
+}
+
+.note-sm {
+	font-size: 12px
+}
+
+.font-xxl {
+	font-size: 40px;
+}
+
+.panel {
+	padding: 10px;
+}
+
+.panel-smooth {
+	border-radius: 10px;
+}
+
+.panel-white {
+	background-color: white;
+}
+
+/*.ubuntu-font {
+	font-family: 'Ubuntu', sans-serif;
+	font-smooth: always;
+	-moz-osx-font-smoothing: always;
+	-webkit-font-smoothing: always;
+}*/
+
+/*.alegreyasans-font {
+	font-family: 'Alegreya Sans', sans-serif;
+	font-smooth: always;
+	-moz-osx-font-smoothing: always;
+	-webkit-font-smoothing: always;
+}*/
+
+@font-face {
+  font-family: 'Open Sans';
+  src:  url('myfont.woff2') format('woff2');
+}
+
+.opensans-font {
+	font-family: 'Open Sans', sans-serif;
+	font-smooth: always;
+	-moz-osx-font-smoothing: always;
+	-webkit-font-smoothing: always;
+}
+
+.opensans-condensed-font {
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-smooth: always;
+	-moz-osx-font-smoothing: always;
+	-webkit-font-smoothing: always;
+}
+
+.lato-font {
+	font-family: 'Lato', sans-serif;
+	font-smooth: always;
+	-moz-osx-font-smoothing: always;
+	-webkit-font-smoothing: always;
+}

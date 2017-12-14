@@ -29,6 +29,9 @@ Route::prefix('queue')->group(function(){
 	Route::get('counter','QueuesController@showCounter');
 
 	Route::get('list','QueuesController@showList');
+	Route::post('call','QueuesController@call');
+
+	Route::get('{id}/print','QueuesController@printVoucher');
 });
 
 Route::prefix(config('backpack.base.route_prefix'))->group(function(){

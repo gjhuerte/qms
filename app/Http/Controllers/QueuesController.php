@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use LRedis;
 use Validator;
 use Carbon;
 use App;
@@ -56,6 +57,15 @@ class QueuesController extends Controller
 
     	\Alert::success('Queue Generated')->flash();
 
+        $data = [
+        'voucher' => $voucher
+        ];
+
+        $filename = "Queue-".$voucher->id.".pdf";
+        $view = "queue.print";
+
+        return $this->printPreview($view,$data,$filename);
+
     	return back();
     }
 
@@ -104,8 +114,18 @@ class QueuesController extends Controller
         return redirect(config('backpack.base.route_prefix').'/dashboard');
     }
 
-    public function printVoucher(Request $request)
+    public function printVoucher(Request $request, $id)
     {
+        $voucher = App\Voucher::find($id);
+
+        $data = [
+            'voucher' => $voucher
+        ];
+
+        $filename = "Queue-".$voucher->id.".pdf";
+        $view = "queue.print";
+
+        return $this->printPreview($view,$data,$filename);
 
     }
 
@@ -113,7 +133,9 @@ class QueuesController extends Controller
     {
         if($request->ajax())
         {
-            $vouchers = App\Voucher::with('user')->status('currently attended')->get();
+            $vouchers = App\User::with([ 'vouchers'  => function($query){
+                $query->status('currently attended');
+            }])->get();
             
             return json_encode([
                 'data' => $vouchers
@@ -125,6 +147,26 @@ class QueuesController extends Controller
 
     public function showList(Request $request)
     {
+
+        $this->data['vouchers'] = App\Voucher::where('validity', '>', Carbon\Carbon::now()->startOfDay())->get();
+
+        if($request->ajax())
+        {
+            return json_encode([
+                'data' => $this->data['vouchers']
+            ]);
+        }
+
         return view('queue.list');
+    }
+
+    public function call(Request $request)
+    {
+        // $redis = LRedis::connection();
+        // $data = [ 'id' => $request->get('id') ];
+        // $redis->publish('call', json_encode($data));
+
+        event(new App\Events\CallQueue($request));
+        return response()->json([]);
     }
 }

@@ -3,17 +3,17 @@
 @section('after_styles')
 <style>
     body{
-        /*background-color: #e5e5e5;*/
+        background-color: #264348;
     }
 </style>
 @endsection
 
 @section('content')
 <div class="container-fluid">
-	<div class="row align-self-center" style="margin-top:10px;">
-        <div class="offset-sm-3 col-sm-6 border-0" style="background-color:white; padding: 20px;">
+	<div class="row align-self-center" style="margin-top:5%;">
+        <div class="offset-sm-3 col-sm-6 border-0 shadow-light" style="background-color:white; padding: 20px;">
             <legend class="text-center" style="margin: 20px 0px;letter-spacing: 1px">
-                <h2>Queue Management System</h2>
+                <h2 class="color-indigo" style="letter-spacing: 2px">Queue Management System</h2>
             </legend>
             <nav aria-label="breadcrumb" role="navigation">
               <ol class="breadcrumb">
@@ -64,9 +64,9 @@
                             <textarea class="form-control"  value="{{ (old('purpose')) ? old('purpose') : '' }}" name="purpose" rows="4" placeholder="Purpose"></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">Generate</button>
+                            <button type="submit" class="btn btn-lg btn-primary btn-block">Generate</button>
                         </div>
-                        <p style="font-size: 12px">By clicking the generate button. You agreed to the terms and conditions of the organization. </p>
+                        <p class="text-justified note-sm">By clicking the generate button. You agreed to the terms and conditions of the organization. The generated queue is only valid on the day it was created. Absence upon called is considered as nullified queue. Please contact the administrator for more details on the cue. Have a <strong> Good Day! </strong></p>
                     </div>
                 </form>
             </div>
