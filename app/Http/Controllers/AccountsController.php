@@ -41,8 +41,7 @@ class AccountsController extends Controller {
 	public function create()
 	{
 		return view('account.create')
-				->with('title','Accounts')
-				->with('office',App\Office::pluck('name','code'));
+				->with('title','Accounts');
 	}
 
 
@@ -84,19 +83,10 @@ class AccountsController extends Controller {
 		DB::beginTransaction();
 
 		$user = new App\User;
-		$user->lastname = $lastname;
-		$user->firstname = $firstname;
-		$user->middlename = $middlename;
-		$user->username = $username;
+		$user->fullname = $fullname;
 		$user->email = $email;
-		$user->office = $office;
 		$user->password = Hash::make($password);
-		$user->status = '1';
-		$user->access = $access;
-		$user->position = $position;
 		$user->save();
-		$user->action = 'create';
-		$user->createAuditTrail();
 
 		DB::commit();
 
@@ -132,8 +122,7 @@ class AccountsController extends Controller {
 			$user = App\User::find($id);
 			return view('account.update')
 				->with('user',$user)
-				->with('title','Accounts')
-				->with('office',App\Office::pluck('name','code'));
+				->with('title','Accounts');
 		}
 	}
 
@@ -146,13 +135,8 @@ class AccountsController extends Controller {
 	 */
 	public function update($id)
 	{
-		$lastname = $this->sanitizeString(Input::get('lastname'));
-		$firstname = $this->sanitizeString(Input::get('firstname'));
-		$middlename = $this->sanitizeString(Input::get('middlename'));
+		$name = $this->sanitizeString(Input::get('name'));
 		$email = $this->sanitizeString(Input::get('email'));
-		$username = $this->sanitizeString(Input::get('username'));
-		$office = $this->sanitizeString(Input::get('office'));
-		$position = $this->sanitizeString(Input::get('position'));
 
 		$user = App\User::find($id);
 
@@ -172,15 +156,8 @@ class AccountsController extends Controller {
 				->withErrors($validator);
 		}
 		
-		$user->username = $username;
-		$user->lastname = $lastname;
-		$user->firstname = $firstname;
-		$user->middlename = $middlename;
-		$user->office = $office;
+		$user->username = $name;
 		$user->email = $email;
-		$user->position = $position;
-		$user->action = 'update';
-		$user->createAuditTrail();
 		$user->save();
 
 		\Alert::success('Account information updated')->flash();
@@ -209,8 +186,6 @@ class AccountsController extends Controller {
 			else
 			{
 				$user = App\User::find($id);
-				$user->action = 'delete';
-				$user->createAuditTrail();
 				$user->delete();
 
 				return json_encode('success');
@@ -225,8 +200,6 @@ class AccountsController extends Controller {
 			return Redirect::back();
 		}
 
-		$user->action = 'delete';
-		$user->createAuditTrail();
 		$user->delete();
 
 		\Alert::success('Account removed!')->flash();
@@ -246,33 +219,9 @@ class AccountsController extends Controller {
 			$id = $this->sanitizeString(Input::get('id'));
 		 	$user = App\User::find($id);
 		 	$user->password = Hash::make('12345678');
-			$user->action = 'update';
-			$user->createAuditTrail();
 		 	$user->save();
 
 		 	return json_encode('success');
 		}
-	}
-
-	public function changeAccessLevel()
-	{
-		$id = $this->sanitizeString(Input::get("id"));
-		$access = $this->sanitizeString(Input::get('newaccesslevel'));
-
-		if(Auth::user()->access != 0)
-		{
-
-			\Alert::error('You do not have enough priviledge to change the users access level')->flash();
-			return redirect('account');
-		}
-
-		$user = App\User::find($id);
-		$user->access = $access;
-		$user->action = 'update';
-		$user->createAuditTrail();
-		$user->save();
-
-		\Alert::success('Access updated')->flash();
-		return redirect('account');
 	}
 }

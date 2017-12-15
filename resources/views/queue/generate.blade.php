@@ -48,7 +48,9 @@
                             @endif
                             
                             <select name="category"  value="{{ (old('category')) ? old('category') : '' }}" class="form-control">
-                                <option>Tagging</option>
+                                @foreach(isset($categories) ? $categories : array() as $category)
+                                <option value="{{ isset($category->name) ? $category->name : "" }}">{{ isset($category->name) ? $category->name : "" }}</option>
+                                @endforeach
                             </select>
 
                         </div>

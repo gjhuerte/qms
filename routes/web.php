@@ -33,7 +33,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::post('sendmessage', 'SocketController@sendMessage');
 	Route::get('writemessage', 'SocketController@writemessage');
 
+	Route::post('account/password/reset','AccountsController@resetPassword');
 	Route::resource('account','AccountsController');
+	Route::resource('category','CategoriesController');
 });
 
 Route::prefix('queue')->group(function(){
