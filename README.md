@@ -54,15 +54,15 @@ npm test
 
 ## Meta
 
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – [YourEmail@example.com](mailto:YourEmail@example.com)
+Gabriel Jay Huerte – [@gjhuerte](https://twitter.com/gjhuerte) – [gjhuerte@gmail.com](mailto:gjhuerte@gmail.com)
 
-Distributed under the XYZ license. See `LICENSE` for more information.
+Distributed under the MIT license. See `LICENSE` for more information.
 
-[https://github.com/yourname/github-link](https://github.com/dbader/)
+[https://github.com/gjhuerte](https://github.com/gjhuerte/)
 
 ## Contributing
 
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
+1. Fork it (<https://github.com/gjhuerte/qms/fork>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
