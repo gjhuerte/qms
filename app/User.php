@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,11 +30,12 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-    * Send the password reset notification.
-    *
-    * @param  string  $token
-    * @return void
-    */
+     * Send the password reset notification.
+     *
+     * @param string $token
+     *
+     * @return void
+     */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
@@ -42,6 +43,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function vouchers()
     {
-        return $this->hasMany('App\Voucher', 'attended_by','id');
+        return $this->hasMany('App\Voucher', 'attended_by', 'id');
     }
 }

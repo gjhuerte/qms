@@ -15,41 +15,41 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth'])->group(function () { 
-	Route::prefix('queue')->group(function(){
-		Route::get('/', 'QueuesController@index' );
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('queue')->group(function () {
+        Route::get('/', 'QueuesController@index');
 
-		Route::get('attend','QueuesController@showAttendForm');
-		Route::post('attend','QueuesController@attend');
+        Route::get('attend', 'QueuesController@showAttendForm');
+        Route::post('attend', 'QueuesController@attend');
 
-		Route::get('cancel','QueuesController@cancel');
-	});
+        Route::get('cancel', 'QueuesController@cancel');
+    });
 
-	Route::prefix(config('backpack.base.route_prefix'))->group(function(){
-		Route::get('dashboard', 'AdminController@dashboard');
-	});
-	 
-	Route::get('socket', 'SocketController@index');
-	Route::post('sendmessage', 'SocketController@sendMessage');
-	Route::get('writemessage', 'SocketController@writemessage');
+    Route::prefix(config('backpack.base.route_prefix'))->group(function () {
+        Route::get('dashboard', 'AdminController@dashboard');
+    });
 
-	Route::post('account/password/reset','AccountsController@resetPassword');
-	Route::resource('account','AccountsController');
-	Route::resource('category','CategoriesController');
+    Route::get('socket', 'SocketController@index');
+    Route::post('sendmessage', 'SocketController@sendMessage');
+    Route::get('writemessage', 'SocketController@writemessage');
+
+    Route::post('account/password/reset', 'AccountsController@resetPassword');
+    Route::resource('account', 'AccountsController');
+    Route::resource('category', 'CategoriesController');
 });
 
-Route::prefix('queue')->group(function(){
-	Route::get('/', 'QueuesController@index' );
+Route::prefix('queue')->group(function () {
+    Route::get('/', 'QueuesController@index');
 
-	Route::get('generate', 'QueuesController@showGenerateForm');
-	Route::post('generate', 'QueuesController@generate');
+    Route::get('generate', 'QueuesController@showGenerateForm');
+    Route::post('generate', 'QueuesController@generate');
 
-	Route::get('counter','QueuesController@showCounter');
+    Route::get('counter', 'QueuesController@showCounter');
 
-	Route::get('list','QueuesController@showList');
-	Route::post('call','QueuesController@call');
+    Route::get('list', 'QueuesController@showList');
+    Route::post('call', 'QueuesController@call');
 
-	Route::get('{id}/print','QueuesController@printVoucher');
+    Route::get('{id}/print', 'QueuesController@printVoucher');
 });
 
 // Auth::routes();
