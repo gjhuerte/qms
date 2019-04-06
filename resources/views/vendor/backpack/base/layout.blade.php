@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/backpack/overlays/backpack.bold.css') }}">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
 
     @yield('after_styles')
 
@@ -126,6 +127,10 @@
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>  
     <script src="{{ asset('js/moment.min.js') }}"></script> 
     <script src="{{ asset('js/initial.min.js') }}"></script>
+
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script> 
 
     <!-- page script -->
     <script type="text/javascript">

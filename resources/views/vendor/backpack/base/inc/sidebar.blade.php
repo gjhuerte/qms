@@ -21,7 +21,8 @@
           <!-- ==== Recommended place for admin menu items ==== -->
           <!-- ================================================ -->
           <li><a href="{{ backpack_url('dashboard') }}"><i class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
-
+          <li><a href="{{ url('account') }}"><i class="fa fa-user-o"></i> <span>Accounts</span></a></li>
+          <li><a href="{{ url('category') }}"><i class="fa fa-tag"></i> <span>Category</span></a></li>
 
           <!-- ======================================= -->
           {{-- <li class="header">Other menus</li> --}}

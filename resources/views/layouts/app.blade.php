@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
 
     @yield('after_styles')
   </head>
@@ -32,6 +33,10 @@
 
     <script src="{{ asset('vendor/backpack/pnotify/pnotify.custom.min.js') }}"></script>
     <script src="{{ asset('js/initial.min.js') }}"></script>
+
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script> 
 
     {{-- Bootstrap Notifications using Prologue Alerts --}}
     <script type="text/javascript">

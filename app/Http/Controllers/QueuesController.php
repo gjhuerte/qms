@@ -20,7 +20,8 @@ class QueuesController extends Controller
 
     public function showGenerateForm()
     {
-    	return view('queue.generate');
+        $this->data['categories'] = App\Category::all();
+    	return view('queue.generate', $this->data);
     }
 
     public function generate(Request $request)
