@@ -1,22 +1,20 @@
 <?php
 
-return array(
+return [
 
-
-    'pdf' => array(
+    'pdf' => [
         'enabled' => true,
-        'binary' => base_path('public/rendering-engine/wkhtmltopdf/bin/wkhtmltopdf.exe'),
+        'binary'  => base_path('public/rendering-engine/wkhtmltopdf/bin/wkhtmltopdf.exe'),
         'timeout' => false,
-        'options' => array(),
-        'env'     => array(),
-    ),
-    'image' => array(
+        'options' => [],
+        'env'     => [],
+    ],
+    'image' => [
         'enabled' => true,
-        'binary' => base_path('public/rendering-engine/wkhtmltopdf/bin/wkhtmltoimage.exe'),
+        'binary'  => base_path('public/rendering-engine/wkhtmltopdf/bin/wkhtmltoimage.exe'),
         'timeout' => false,
-        'options' => array(),
-        'env'     => array(),
-    ),
+        'options' => [],
+        'env'     => [],
+    ],
 
-
-);
+];

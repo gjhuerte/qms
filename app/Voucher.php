@@ -12,20 +12,20 @@ class Voucher extends Model
 
     public static function rules()
     {
-    	return array(
-    		'category' => 'required',
-    		'name' => 'required',
-    		'purpose' => 'required'
-    	);
+        return [
+            'category' => 'required',
+            'name'     => 'required',
+            'purpose'  => 'required',
+        ];
     }
 
-    public function scopeStatus($query,$value)
+    public function scopeStatus($query, $value)
     {
-        return $query->where('status', '=' , $value);
+        return $query->where('status', '=', $value);
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'attended_by','id');
+        return $this->belongsTo('App\User', 'attended_by', 'id');
     }
 }

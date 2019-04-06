@@ -2,72 +2,71 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use LRedis;
-use Validator;
-use Carbon;
 use App;
 use Auth;
+use Carbon;
 use Event;
+use Illuminate\Http\Request;
+use LRedis;
+use Validator;
 
 class QueuesController extends Controller
 {
     public function index()
     {
-    	return view('queue.index');
+        return view('queue.index');
     }
 
     public function showGenerateForm()
     {
         $this->data['categories'] = App\Category::all();
-    	return view('queue.generate', $this->data);
+
+        return view('queue.generate', $this->data);
     }
 
     public function generate(Request $request)
     {
+        $name = $request->get('name');
+        $category = $request->get('category');
+        $purpose = $request->get('purpose');
 
-    	$name = $request->get('name');
-    	$category = $request->get('category');
-    	$purpose = $request->get('purpose');
+        $validator = Validator::make([
+            'category' => $category,
+            'name'     => $name,
+            'purpose'  => $purpose,
+        ], App\Voucher::rules());
 
-    	$validator = Validator::make([
-    		'category' => $category,
-    		'name' => $name,
-    		'purpose' => $purpose
-		],App\Voucher::rules());
+        if ($validator->fails()) {
+            \Alert::error('Problem encountered while creating a queue')->flash();
 
-		if($validator->fails())
-		{
-			\Alert::error('Problem encountered while creating a queue')->flash();
-			return back()
-					->withInput()
-					->withErrors($validator);
-		}
+            return back()
+                    ->withInput()
+                    ->withErrors($validator);
+        }
 
-    	$voucher = new App\Voucher;
-    	$voucher->customer_name = $name;
-    	$voucher->category = $category;
-    	$voucher->purpose = $purpose;
+        $voucher = new App\Voucher();
+        $voucher->customer_name = $name;
+        $voucher->category = $category;
+        $voucher->purpose = $purpose;
         $voucher->attended_by = null;
-    	$voucher->validity = Carbon\Carbon::now()->endOfDay();
-    	$voucher->status = 'on queue';
-    	$voucher->save();
+        $voucher->validity = Carbon\Carbon::now()->endOfDay();
+        $voucher->status = 'on queue';
+        $voucher->save();
 
         event(new App\Events\CreateQueue($voucher));
 
-    	\Alert::success('Queue Generated')->flash();
+        \Alert::success('Queue Generated')->flash();
 
         $data = [
-        'voucher' => $voucher
+        'voucher' => $voucher,
         ];
 
-        $filename = "Queue-".$voucher->id.".pdf";
-        $view = "queue.print";
+        $filename = 'Queue-'.$voucher->id.'.pdf';
+        $view = 'queue.print';
 
-        return $this->printPreview($view,$data,$filename);
+        return $this->printPreview($view, $data, $filename);
 
-    	return back();
+        return back();
     }
 
     public function showAttendForm(Request $request)
@@ -82,7 +81,7 @@ class QueuesController extends Controller
 
         event(new App\Events\AttendedQueue($this->data['voucher']));
 
-        return view('queue.attend',$this->data);
+        return view('queue.attend', $this->data);
     }
 
     public function attend(Request $request)
@@ -120,26 +119,24 @@ class QueuesController extends Controller
         $voucher = App\Voucher::find($id);
 
         $data = [
-            'voucher' => $voucher
+            'voucher' => $voucher,
         ];
 
-        $filename = "Queue-".$voucher->id.".pdf";
-        $view = "queue.print";
+        $filename = 'Queue-'.$voucher->id.'.pdf';
+        $view = 'queue.print';
 
-        return $this->printPreview($view,$data,$filename);
-
+        return $this->printPreview($view, $data, $filename);
     }
 
     public function showCounter(Request $request)
     {
-        if($request->ajax())
-        {
-            $vouchers = App\User::with([ 'vouchers'  => function($query){
+        if ($request->ajax()) {
+            $vouchers = App\User::with(['vouchers'  => function ($query) {
                 $query->status('currently attended');
             }])->get();
-            
+
             return json_encode([
-                'data' => $vouchers
+                'data' => $vouchers,
             ]);
         }
 
@@ -148,13 +145,11 @@ class QueuesController extends Controller
 
     public function showList(Request $request)
     {
-
         $this->data['vouchers'] = App\Voucher::where('validity', '>', Carbon\Carbon::now()->startOfDay())->get();
 
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             return json_encode([
-                'data' => $this->data['vouchers']
+                'data' => $this->data['vouchers'],
             ]);
         }
 
@@ -168,6 +163,7 @@ class QueuesController extends Controller
         // $redis->publish('call', json_encode($data));
 
         event(new App\Events\CallQueue($request));
+
         return response()->json([]);
     }
 }

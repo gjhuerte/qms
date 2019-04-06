@@ -12,13 +12,13 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         App\User::truncate();
-        App\User::insert(array(
-        	[
-        		'email' => 'johndoe@email.com',
-        		'password' => Hash::make('123456789'),
-        		'name' => 'John Doe',
-        		'created_at' => Carbon\Carbon::now(),
-        	]
-        ));
+        App\User::insert([
+            [
+                'email'      => 'johndoe@email.com',
+                'password'   => Hash::make('123456789'),
+                'name'       => 'John Doe',
+                'created_at' => Carbon\Carbon::now(),
+            ],
+        ]);
     }
 }

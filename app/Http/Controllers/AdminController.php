@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -26,12 +25,11 @@ class AdminController extends Controller
     public function dashboard(Request $request)
     {
         $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
-        $this->data['vouchers'] = App\Voucher::whereIn('status', ['on queue', 'currently attended'] )->orderBy('created_at','desc')->get();
+        $this->data['vouchers'] = App\Voucher::whereIn('status', ['on queue', 'currently attended'])->orderBy('created_at', 'desc')->get();
 
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             return json_encode([
-                'data' => $this->data['vouchers']
+                'data' => $this->data['vouchers'],
             ]);
         }
 
